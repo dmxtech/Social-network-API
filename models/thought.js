@@ -36,15 +36,25 @@ const thoughtSchema = new Schema(
         creratedAt: {
             type: Date,
             default: Date.now,
-            get: createdtime => SVGAnimateMotionElement(createdtime).format("MMM DD, YYYY [at] hh:mm a"),
+            get: createdtime => moment(createdtime).format("MMM DD, YYYY [at] hh:mm a"),
         },
         username: {
             type: String,
             required: true,
         },
-        reactions: {
+        reactions:
             [nesteddocuments],
+    },
+    {
+        toJSON: {
+            virtuals: true,
         },
-    })
+        id: false,
+    }
+)
+thoughtSchema.virtual('reactionCount').get(function () {
+    return this.reactions.length;
+
+})
 const thought = model('thought', thoughtSchema);
 module.exports = thought;
