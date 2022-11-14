@@ -12,6 +12,6 @@ app.use(express.json());
 // Run server
 db.once('open', () => {
     app.listen(PORT, () => {
-        console.log(`App is running on port ${PORT}!`);
+        console.log(`App is running on port http://localhost:${PORT}`);
     })
 });
